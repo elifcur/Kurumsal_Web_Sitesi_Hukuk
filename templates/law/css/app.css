@@ -1,0 +1,91 @@
+@import 'tailwindcss';
+@import '../../../resources/css/base.css';
+
+@source '../views/**/*.blade.php';
+@source '../../../resources/views/components/*.blade.php';
+@source '../../../resources/views/errors/*.blade.php';
+@source '../../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+
+/*
+ * Hukuk şablonu: siyah (#1c1c1c) zeminli fotoğraflı hero, altın (#b8965a) vurgular,
+ * krem (#f6f1e8) yan paneller. Serif başlıklar (Cormorant Garamond) + Source Sans 3 gövde.
+ * --color-primary sitenin koyu marka rengi; admin panelinden değiştirilebilir
+ * (layouts/app.blade.php içinde inline :root ile ezilir). Altın (accent) sabittir.
+ */
+@theme {
+    --font-sans: 'Source Sans 3', ui-sans-serif, system-ui, sans-serif;
+    --font-display: 'Cormorant Garamond', Georgia, 'Times New Roman', serif;
+
+    --color-primary: #1c1c1c;
+    --color-primary-dark: #0f0f0f;
+    --color-primary-light: #f0eeea;
+    --color-primary-contrast: #ffffff;
+    --color-accent: #b8965a;
+    --color-gold: #b8965a;
+    --color-gold-dark: #9a7a44;
+    --color-gold-light: #f6f1e8;
+    --color-ink: #1c1c1c;
+    --color-cream: #f6f1e8;
+    --color-parchment: #faf8f4;
+}
+
+@layer base {
+    body {
+        @apply bg-white text-slate-700 antialiased;
+        font-family: var(--font-sans);
+    }
+
+    h1, h2, h3, h4 {
+        font-family: var(--font-display);
+    }
+
+    h1, h2 {
+        font-weight: 700;
+        letter-spacing: -0.015em;
+    }
+
+    /* Vurgu kelimesi altın, italik değil (mockup) */
+    h1 em, h2 em {
+        font-style: normal;
+        color: var(--color-accent);
+    }
+}
+
+@layer components {
+    /* Dolgulu altın marka butonu, ince çerçeveli ikincil buton, koyu zemin varyantları */
+    .btn-primary { @apply btn rounded-md bg-gold text-white hover:bg-gold-dark; }
+    .btn-brand { @apply btn rounded-md bg-primary text-primary-contrast hover:bg-primary-dark; }
+    .btn-gold { @apply btn rounded-md bg-gold text-white hover:bg-gold-dark; }
+    .btn-outline { @apply btn rounded-md border border-slate-300 bg-white text-slate-800 hover:border-ink hover:text-ink; }
+    .btn-light { @apply btn rounded-md bg-white text-ink hover:bg-slate-100; }
+    .btn-outline-light { @apply btn rounded-md border border-white/70 text-white hover:border-white hover:bg-white/10; }
+    .btn-ghost-light { @apply btn rounded-md border border-white/30 text-white hover:bg-white/10; }
+
+    .section { @apply py-16 md:py-24; }
+    .section-title { @apply font-display text-4xl leading-tight tracking-tight text-ink md:text-5xl; }
+    .section-subtitle { @apply mt-4 max-w-2xl text-base leading-relaxed text-slate-600 md:text-lg; }
+    .eyebrow { @apply mb-3 inline-block text-xs font-semibold tracking-[0.25em] text-gold uppercase; }
+    .rule-accent { @apply mt-4 block h-0.5 w-12 bg-gold; }
+    .hero-bg { background: linear-gradient(180deg, #ffffff 0%, #faf8f4 100%); }
+    .hero-dark { background: linear-gradient(90deg, #1c1c1c 0%, #1c1c1c 100%); }
+    .logo-grid { @apply grid grid-cols-2 border-t border-l border-slate-200 sm:grid-cols-3 lg:grid-cols-6; }
+    .logo-grid > * { @apply flex h-24 items-center justify-center border-r border-b border-slate-200 bg-white px-6 text-sm font-semibold text-slate-500 grayscale transition hover:grayscale-0; }
+
+    /* Ölçülü altın çizgi: hakkımızda ve alıntı bloklarında */
+    .rule-gold { @apply mt-5 mb-6 block h-px w-12 bg-gold; }
+
+    .card { @apply rounded-lg border border-slate-200/80 bg-white shadow-sm transition-all hover:-translate-y-0.5 hover:shadow-md; }
+
+    /* Fotoğrafın sol altına binen beyaz yuvarlak ikon rozeti */
+    .icon-badge { @apply absolute -bottom-6 left-4 flex h-12 w-12 items-center justify-center rounded-full bg-white text-ink shadow-md ring-1 ring-slate-200; }
+
+    .nav-link { @apply relative px-2.5 py-2 text-[13px] xl:px-3 xl:text-sm font-medium tracking-wide whitespace-nowrap text-slate-700 transition hover:text-ink; }
+    .nav-link-active { @apply text-ink; }
+    .nav-link-active::after { content: ''; @apply absolute inset-x-3 -bottom-1 h-0.5 bg-gold; }
+
+    .link-more { @apply inline-flex items-center gap-1.5 text-sm font-semibold text-gold transition hover:text-gold-dark; }
+    .link-all { @apply inline-flex items-center gap-1.5 border-b border-ink pb-0.5 text-sm font-semibold text-ink transition hover:border-gold hover:text-gold; }
+
+    .chip { @apply inline-flex items-center gap-1 rounded-full border border-slate-200 bg-white px-2.5 py-1 text-xs font-medium text-slate-600; }
+    .numeral { @apply font-display text-3xl font-semibold leading-none text-gold; }
+}
